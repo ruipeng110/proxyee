@@ -18,7 +18,11 @@
       </plugin>
     </plugins>
   </build>
-  <packaging>jar</packaging>
+  <modules>
+    <module>proxye</module>
+    <module>demo</module>
+  </modules>
+  <packaging>pom</packaging>
 
   <name>proxyee</name>
   <description>HTTP proxy server,support HTTPS and websocket.MITM impl,intercept and tamper HTTPS traffic.</description>
@@ -95,44 +99,19 @@
             <artifactId>maven-compiler-plugin</artifactId>
           </plugin>
           <!-- Source -->
+
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <!-- Javadoc -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-gpg-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>sign-artifacts</id>
-                <phase>verify</phase>
-                <goals>
-                  <goal>sign</goal>
-                </goals>
-              </execution>
-            </executions>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+              <archive>
+                <manifest>
+                  <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
+                  <mainClass>com.github.monkeywie.proxyee.Main</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
           </plugin>
         </plugins>
       </build>
